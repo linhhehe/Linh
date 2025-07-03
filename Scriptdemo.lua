@@ -53,11 +53,3 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/h
 	  loadstring(game:HttpGet("https://raw.githubusercontent.com/Overgustx2/Main/refs/heads/main/BloxFruits_25.html"))() 
 	  end
   })
-  
-	  AddButton(Tab3o, {
-     Name = "Fetching Hub nè mấy thằng cặc",
-    Callback = function()
-	  local Settings = {
-	  loadstring(game:HttpGet("https://github.com/MerrySubs4t/Softwork/blob/main/Fetching/dll?raw=true"))()
-	end
-  })  	  
