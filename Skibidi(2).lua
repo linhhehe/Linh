@@ -197,3 +197,82 @@ getgenv().Config = {
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e80e11cce2599152482a2d3e7d6b99d7.lua"))()
    end
  })
+ 
+ Tabs.Main1:AddButton({
+    Title="aotu nhặt trái nè tg lon",
+    Description="",
+    Callback=function()
+    getgenv().Config = {
+    ["Misc"] = {
+        ["RandomFruits"] = true,
+        ["BlackScreen"] = false,
+    }
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/FindFruits.lua"))()
+   end
+ })
+  
+  Tabs.Main1:AddButton({
+    Title="aotu nhặt rương nè tg lon",
+    Description="",
+    Callback=function()
+    getgenv().SH_Settings = {
+["MainConfig"] = {
+["Enable Farm"] = true,
+["Version Farm"] = "1", -- Version 1 Very Fast 2 Slow But Safe
+["Sniper Legendary Item"] = true
+},
+["Settings"] = {
+["Choose Team"] = "Marines",
+["White Screen"] = false,
+["Reset Anti Detect"] = true,
+["Time Checker"] = 300, -- Check Time For Next Server
+["Hop 2"] = false,
+["Webhook"] = {
+["Enable Webhook"] = false,
+["Link"] = "", -- Discord Webhook Link
+["Thumbnail"] = "",
+["Lock Beli"] = 1000000000,
+["Ping User ID"] = "everyone" -- Only ID
+}
+},
+["FruitSniper"] = {
+["Enable Sniper Fruit"] = true,
+["Fruit"] = {
+"Leopard-Leopard",
+"Kitsune-Kitsune",
+"Dragon-Dragon",
+"Yeti-Yeti",
+"Dough-Dough"
+}
+},
+["Legendary Sword"] = {
+["Enable Auto Buy"] = true
+},
+["Aura Haki"] = {
+["Enable Auto Buy"] = true
+}
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/xxhumggxx/SkullHub/refs/heads/main/ChestV2.lua"))()
+   and
+ })
+ 
+ Tabs.Main1:AddButton({
+    Title="bnanaHub(free) nè tg lon",
+    Description="",
+    Callback=function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Chiriku2013/BananaCatHub/refs/heads/main/BananaCatHub.lua"))()
+    and
+  })
+  
+  Tabs.Main1:AddButton({
+    Title="lion hup nè tg lon",
+    Description="",
+    Callback=function()
+    repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+getgenv().Team = "Pirates" -- Marines
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e0c7fcf6c077fc23475cf4ce4db58e42.lua"))()
+   and
+ })
+  
+  
