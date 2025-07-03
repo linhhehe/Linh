@@ -41,7 +41,7 @@ local Tabs = {
 }
     Tabs.Main0:AddButton({
     Title = "Discord",
-    Description = "éo có",
+    Description = "éocó",
     Callback = function()
         setclipboard("https://youtube.com/@linhx2x10?si=LuprdZv5zeOfUd2n-community-1253927333920899153")
     end
@@ -57,7 +57,7 @@ local Tabs = {
 
     Tabs.Main0:AddButton({
     Title = "Youtuber",
-    Description = "éo có",
+    Description = "éocó",
     Callback = function()
         setclipboard("https://youtube.com/@linhx2x10?si=LuprdZv5zeOfUd2n")
     end
