@@ -2,7 +2,7 @@ loadstring(game:HttpGet(("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V
 
        local Window = MakeWindow({
          Hub = {
-         Title = "linhđepzai",
+         Title = "linhdepzai",
          Animation = "tiktok: linhhehe"
          },
         Key = {
@@ -30,23 +30,23 @@ loadstring(game:HttpGet(("https://raw.githubusercontent.com/daucobonhi/Ui-Redz-V
       })
       
 ------ Tab
-     local Tab1o = MakeTab({Name = "Script Farm"})
+     local Tab1o = MakeTab({Name = "Script bú lồn"})
      
 ------- BUTTON
     
     AddButton(Tab1o, {
-Name = "Redz Hub nè mấy thằng cặc", 
+     Name = "Redz Hub nè mấy thằng lồn",
     Callback = function()
 	  local Settings = {
-    JoinTeam = "Pirates"; -- Pirates / Marines
-    Translator = true;   -- true / false
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
 }
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/heads/main/main.luau"))(Settings)
-end
+  end
   })
-
-AddButton(Tab2o, {
+  
+  AddButton(Tab2o, {
      Name = "Astral Hub nè mấy thằng cặc",
     Callback = function()
 	  local Settings = {
