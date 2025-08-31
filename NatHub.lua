@@ -1,18 +1,247 @@
+-- ESP Mobs - Green Circle (5000 studs, small circle)
 
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Camera = workspace.CurrentCamera
+local LocalPlayer = Players.LocalPlayer
+
+-- lưu ESP
+local mobESP = {}
+local MAX_DISTANCE = 5000 -- 👈 chỉ quét quái trong phạm vi 5000 stud
+
+-- tạo circle
+local function createCircle()
+    local circle = Drawing.new("Circle")
+    circle.Color = Color3.fromRGB(0, 255, 0) -- xanh lá
+    circle.Thickness = 2
+    circle.NumSides = 50
+    circle.Filled = false
+    circle.Radius = 1.2 -- 👈 nhỏ gấp 10 lần (so với 12)
+    circle.Visible = true
+    return circle
+end
+
+-- tạo esp cho mob
+local function addESP(mob)
+    if mobESP[mob] then return end
+    local circle = createCircle()
+    mobESP[mob] = circle
+
+    mob.AncestryChanged:Connect(function(_, parent)
+        if not parent then
+            if mobESP[mob] then
+                mobESP[mob]:Remove()
+                mobESP[mob] = nil
+            end
+        end
+    end)
+end
+
+-- update vòng tròn theo vị trí
+RunService.RenderStepped:Connect(function()
+    local char = LocalPlayer.Character
+    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+    if not hrp then return end
+
+    for mob, circle in pairs(mobESP) do
+        if mob and mob:FindFirstChild("HumanoidRootPart") and mob:FindFirstChildOfClass("Humanoid") and mob.Humanoid.Health > 0 then
+            local distance = (mob.HumanoidRootPart.Position - hrp.Position).Magnitude
+            if distance <= MAX_DISTANCE then
+                local pos, onScreen = Camera:WorldToViewportPoint(mob.HumanoidRootPart.Position)
+                if onScreen then
+                    circle.Position = Vector2.new(pos.X, pos.Y)
+                    circle.Visible = true
+                else
+                    circle.Visible = false
+                end
+            else
+                circle.Visible = false
+            end
+        else
+            circle.Visible = false
+        end
+    end
+end)
+
+-- theo dõi workspace.Enemies
+for _, mob in ipairs(workspace.Enemies:GetChildren()) do
+    addESP(mob)
+end
+workspace.Enemies.ChildAdded:Connect(function(mob)
+    task.wait(0.2)
+    addESP(mob)
+end)
+
+-- Skibidi
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+task.delay(25, function() -- ⏳ Chờ 10 giây mới bật script này
+
+    -- Hàm tạo aura xanh ngọc
+    local function createAquaAura(char)
+        if not char then return end
+        if char:FindFirstChild("AquaAura") then
+            char.AquaAura:Destroy()
+        end
+
+        local aura = Instance.new("Highlight")
+        aura.Name = "AquaAura"
+        aura.FillColor = Color3.fromRGB(64, 224, 208)   -- xanh ngọc
+        aura.OutlineColor = Color3.fromRGB(64, 224, 208)
+        aura.FillTransparency = 1 -- mặc định ẩn
+        aura.OutlineTransparency = 1
+        aura.Parent = char
+    end
+
+    -- Respawn thì tạo aura
+    local function onCharacterAdded(char)
+        char:WaitForChild("HumanoidRootPart")
+        task.wait(1)
+        createAquaAura(char)
+
+        local humanoid = char:WaitForChild("Humanoid")
+        local aura = char:FindFirstChild("AquaAura")
+
+        local floatTime = 0
+        RunService.RenderStepped:Connect(function(dt)
+            if not humanoid or not aura then return end
+
+            if humanoid.FloorMaterial == Enum.Material.Air then
+                floatTime += dt
+                if floatTime >= 3 then
+                    aura.FillTransparency = 0.3
+                    aura.OutlineTransparency = 0
+                end
+            else
+                floatTime = 0
+                aura.FillTransparency = 1
+                aura.OutlineTransparency = 1
+            end
+        end)
+    end
+
+    if LocalPlayer.Character then
+        onCharacterAdded(LocalPlayer.Character)
+    end
+    LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+end)
+pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/AnhDzaiScript/Setting/refs/heads/main/FastMax.lua"))()
+end)
+local plr = game:GetService("Players").LocalPlayer
+local Notification = require(game:GetService("ReplicatedStorage").Notification)
+
+-- Thông báo chào mừng
+Notification.new("<Color=Yellow>Mùng Hai Tháng Chín rợp cờ,<Color=/>"):Display()
+task.wait(1)
+Notification.new("<Color=Yellow>Non sông gấm vóc đợi chờ vươn xa.<Color=/>"):Display()
+task.wait(1)
+Notification.new("<Color=Yellow>Máu hồng bao thuở ông cha,<Color=/>"):Display()
+task.wait(1)
+Notification.new("<Color=Yellow>Cho nay đất Việt ngọc ngà sáng tươi.<Color=/>"):Display()
+task.wait(1)
+Notification.new("<Color=Yellow><Chúc Mừng Ngày Quốc Khánh><Color=/>"):Display()
+task.wait(1)
+Notification.new("<Color=Yellow>Mùng 2 Tháng 9<Color=/>"):Display()
+task.wait(1)
+Notification.new("<Color=Yellow>HNC Roblox<Color=/>"):Display()
+task.wait(5)
+-- Anh em đổi thông báo ở trên nha vd: Notification.new("<Color=White>đổi thông báo chỗ này nè!<Color=/>"):Display()
+-- LocalScript (đặt trong StarterPlayerScripts)
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+
+-- Tùy chỉnh
+local TEXT = "Fast Attack By HNC Roblox"
+local TEXT_SIZE = 14                 -- kích thước chữ (không quá to)
+local GUI_OFFSET = Vector3.new(0, 1.8, 0) -- khoảng cách so với đầu
+local RAINBOW_SPEED = 1.0           -- tốc độ đổi màu (1 = bình thường, tăng để nhanh hơn)
+
+local function createBillboardFor(character)
+    if not character then return end
+    local head = character:FindFirstChild("Head") or character:FindFirstChildWhichIsA("BasePart")
+    if not head then return end
+
+    -- Nếu đã có Billboard do script tạo thì hủy trước
+    local existing = head:FindFirstChild("HNC_FastAttack_Label")
+    if existing then existing:Destroy() end
+
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = "HNC_FastAttack_Label"
+    billboard.Adornee = head
+    billboard.AlwaysOnTop = true
+    billboard.Size = UDim2.new(0, 200, 0, 40) -- kích thước GUI
+    billboard.StudsOffset = GUI_OFFSET
+    billboard.Parent = head
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Name = "Label"
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.Text = TEXT
+    textLabel.Font = Enum.Font.SourceSansBold
+    textLabel.TextSize = TEXT_SIZE
+    textLabel.TextStrokeTransparency = 0.6
+    textLabel.TextTransparency = 0
+    textLabel.TextScaled = false
+    textLabel.Parent = billboard
+
+    -- rainbow loop
+    local hue = 0
+    local con
+    con = RunService.RenderStepped:Connect(function(dt)
+        hue = (hue + dt * RAINBOW_SPEED) % 1
+        local rgb = Color3.fromHSV(hue, 0.9, 1)
+        if textLabel and textLabel.Parent then
+            textLabel.TextColor3 = rgb
+        else
+            if con then con:Disconnect() end
+        end
+    end)
+end
+
+-- khi spawn/respawn character
+local function onCharacterAdded(character)
+    -- đợi head xuất hiện
+    if not character.Parent then
+        character.AncestryChanged:Wait()
+    end
+    -- tạo sau 0.1s để head chắc chắn có
+    wait(0.1)
+    createBillboardFor(character)
+end
+
+-- kết nối
+if player.Character then
+    onCharacterAdded(player.Character)
+end
+player.CharacterAdded:Connect(onCharacterAdded)
+
+-- optional: nếu muốn tắt khi rời game (cleanup)
+player.AncestryChanged:Connect(function(_, parent)
+    if not parent then
+        -- client đang bị remove, nothing to do
+    end
+end)
 local WindUI = (loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua")))();
 local Window = WindUI:CreateWindow({
-    Title = "HNC Hub",
+    Title = "HNC Hub - V6 [Beta]",
     Author = "By HNC Roblox",
     Folder = "By HNC Roblox",
-    Size = UDim2.fromOffset(470, 250),
+    Size = UDim2.fromOffset(420, 200),
     Transparent = true,
-    Theme = "Sky",
+    Theme = "Dark",
     SideBarWidth = 190,
     HasOutline = false,
 });
 Window:EditOpenButton({
-    Title = "HNC Hub",
-    CornerRadius = UDim.new(0, 10),
+    Title = "OPEN",
+    CornerRadius = UDim.new(1, 0),
     Draggable = false
 });
 local Tabs = {
